@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: simple-fanout-example
+  annotations:
+          certmanager.k8s.io/cluster-issuer: staging
+          nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: test.yurcosmos.xyz
+      http:
+        paths:
+        - path: /server1
+          pathType: Prefix
+          backend:
+            service:
+              name: my-test-1
+              port:
+                number: 80
+        - path: /server2
+          pathType: Prefix
+          backend:
+            service:
+              name: my-test-2
+              port:
+                number: 80
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: my-test-1
+              port:
+                number: 80
+    - host: test2.yurcosmos.xyz
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: my-test-2
+              port:
+                number: 80       

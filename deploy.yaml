@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
         - name : my-test-2
-          image: ylais4/test-app-1:v0.2
+          image: ylais4/test-app-2:v0.2
           ports:
             - containerPort: 80
 
